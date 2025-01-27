@@ -4,6 +4,7 @@ import 'package:advanced_course_udemy/presentation/resources/string_manager.dart
 import 'package:advanced_course_udemy/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -42,30 +43,119 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        elevation: AppSize.s1_5,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: ColorManager.white,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.dark,
+        backgroundColor: ColorManager.white,
+        appBar: AppBar(
+          backgroundColor: ColorManager.white,
+          elevation: AppSize.s1_5,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
+          ),
         ),
-      ),
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: _list.length,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        itemBuilder: (context, index) {
-          return null;
+        body: PageView.builder(
+          controller: _pageController,
+          itemCount: _list.length,
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          itemBuilder: (context, index) {
+            return OnBoardingPage(_list[index]);
+            // return OnBoardingPage
+          },
+        ),
+        bottomSheet: Container(
+            color: ColorManager.white,
+            height: AppSize.s100,
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      child: const Text(AppStrings.onBoardingSkip,
+                          textAlign: TextAlign.end),
+                      onPressed: () {},
+                    )),
+                _getBottomSheetWidget(),
+              ],
+            )));
+  }
 
-          // return OnBoardingPage
-        },
-      ),
+  Widget _getBottomSheetWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+            onTap: () {
+              _pageController.animateToPage(
+                _getPreviousIndex(),
+                duration: const Duration(milliseconds: DurationConstants.d300),
+                curve: Curves.bounceInOut,
+              );
+            },
+            child: SizedBox(
+              height: AppSize.s20,
+              width: AppSize.s20,
+              child: SvgPicture.asset(ImageAssets.leftArrow),
+            ),
+          ),
+        ),
+        Row(
+          children: [
+            for (int i = 0; i < _list.length; i++)
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: _getProperCircle(i),
+              ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+            onTap: () {
+              _pageController.animateToPage(
+                _getNextIndex(),
+                duration: const Duration(milliseconds: DurationConstants.d300),
+                curve: Curves.bounceInOut,
+              );
+            },
+            child: SizedBox(
+              height: AppSize.s20,
+              width: AppSize.s20,
+              child: SvgPicture.asset(ImageAssets.rightArrow),
+            ),
+          ),
+        ),
+      ],
     );
+  }
+
+  int _getPreviousIndex() {
+    int previousIndex = _currentIndex - 1;
+    if (previousIndex == -1) {
+      _currentIndex = _list.length - 1;
+    }
+    return _currentIndex;
+  }
+
+  int _getNextIndex() {
+    int nextIndex = _currentIndex + 1;
+    if (nextIndex >= _list.length) {
+      _currentIndex = 0;
+    }
+    return _currentIndex;
+  }
+
+  Widget _getProperCircle(int index) {
+    if (index == _currentIndex) {
+      return SvgPicture.asset(ImageAssets.hollowCircle);
+    } else {
+      return SvgPicture.asset(ImageAssets.solidCircle);
+    }
   }
 }
 
@@ -95,7 +185,9 @@ class OnBoardingPage extends StatelessWidget {
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
-        const SizedBox(height: AppSize.s60)
+        const SizedBox(height: AppSize.s60),
+        SvgPicture.asset(_sliderObject.image),
+        //image widget
       ],
     );
   }
