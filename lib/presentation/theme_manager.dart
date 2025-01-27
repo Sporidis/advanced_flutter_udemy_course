@@ -65,8 +65,51 @@ ThemeData getApplicationTheme() {
             color: ColorManager.darkGrey, fontSize: FontSize.s14),
         labelSmall: getRegularStyle(color: ColorManager.grey1),
         bodySmall: getRegularStyle(color: ColorManager.grey),
-      )
+      ),
 
       // input decoration theme (text form field)
-      );
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.all(AppPadding.p8),
+        //hint style
+        hintStyle: getRegularStyle(color: ColorManager.grey1),
+        //label style
+        labelStyle: getRegularStyle(color: ColorManager.darkGrey),
+        //error style
+        errorStyle: getRegularStyle(color: ColorManager.error),
+        //enabled border
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSize.s8),
+          borderSide: BorderSide(
+            color: ColorManager.grey1,
+            width: AppSize.s1_5,
+          ),
+        ),
+
+        //focused border
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSize.s8),
+          borderSide: BorderSide(
+            color: ColorManager.primary,
+            width: AppSize.s1_5,
+          ),
+        ),
+
+        //error border
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSize.s8),
+          borderSide: BorderSide(
+            color: ColorManager.error,
+            width: AppSize.s1_5,
+          ),
+        ),
+
+        //focused error border
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSize.s8),
+          borderSide: BorderSide(
+            color: ColorManager.primary,
+            width: AppSize.s1_5,
+          ),
+        ),
+      ));
 }
