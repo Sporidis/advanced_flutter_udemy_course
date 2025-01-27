@@ -1,5 +1,6 @@
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';
+import 'package:advanced_course_udemy/presentation/resources/routes_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/string_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                         textAlign: TextAlign.end,
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, Routes.loginRoute);
+                      },
                     )),
                 _getBottomSheetWidget(),
               ],
@@ -143,7 +147,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
 
   int _getPreviousIndex() {
-    int previousIndex = _currentIndex - 1;
+    int previousIndex = _currentIndex--;
     if (previousIndex == -1) {
       _currentIndex = _list.length - 1;
     }
@@ -151,7 +155,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
 
   int _getNextIndex() {
-    int nextIndex = _currentIndex + 1;
+    int nextIndex = _currentIndex++;
     if (nextIndex >= _list.length) {
       _currentIndex = 0;
     }
