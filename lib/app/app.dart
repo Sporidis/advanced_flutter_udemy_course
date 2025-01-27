@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  // Private Named Constructor: const MyApp._internal();
+  // This is a private constructor that can only be called within the class.
+  const MyApp._internal();
+
+  // Static Instance: static const MyApp instance = MyApp._internal();
+  // This creates a single instance of MyApp using the private constructor.
+  static const MyApp instance = MyApp._internal();
+
+  // Factory Constructor: factory MyApp() => instance;
+  // This factory constructor returns the single instance created above.
+  factory MyApp() => instance;
 
   @override
   State<MyApp> createState() => _MyAppState();
