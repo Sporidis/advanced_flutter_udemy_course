@@ -60,9 +60,43 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           });
         },
         itemBuilder: (context, index) {
+          return null;
+
           // return OnBoardingPage
         },
       ),
+    );
+  }
+}
+
+class OnBoardingPage extends StatelessWidget {
+  final SliderObject _sliderObject;
+  const OnBoardingPage(this._sliderObject, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const SizedBox(height: AppSize.s40),
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: Text(
+            _sliderObject.title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: Text(
+            _sliderObject.subtitle,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ),
+        const SizedBox(height: AppSize.s60)
+      ],
     );
   }
 }
