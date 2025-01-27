@@ -46,7 +46,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         backgroundColor: ColorManager.white,
         appBar: AppBar(
           backgroundColor: ColorManager.white,
-          elevation: AppSize.s1_5,
+          elevation: AppSize.s0,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: ColorManager.white,
             statusBarIconBrightness: Brightness.dark,
@@ -74,8 +74,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      child: const Text(AppStrings.onBoardingSkip,
-                          textAlign: TextAlign.end),
+                      child: Text(
+                        AppStrings.onBoardingSkip,
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                       onPressed: () {},
                     )),
                 _getBottomSheetWidget(),
@@ -84,53 +87,58 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
 
   Widget _getBottomSheetWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: GestureDetector(
-            onTap: () {
-              _pageController.animateToPage(
-                _getPreviousIndex(),
-                duration: const Duration(milliseconds: DurationConstants.d300),
-                curve: Curves.bounceInOut,
-              );
-            },
-            child: SizedBox(
-              height: AppSize.s20,
-              width: AppSize.s20,
-              child: SvgPicture.asset(ImageAssets.leftArrow),
-            ),
-          ),
-        ),
-        Row(
-          children: [
-            for (int i = 0; i < _list.length; i++)
-              Padding(
-                padding: const EdgeInsets.all(AppPadding.p8),
-                child: _getProperCircle(i),
+    return Container(
+      color: ColorManager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              onTap: () {
+                _pageController.animateToPage(
+                  _getPreviousIndex(),
+                  duration:
+                      const Duration(milliseconds: DurationConstants.d300),
+                  curve: Curves.bounceInOut,
+                );
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.leftArrow),
               ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: GestureDetector(
-            onTap: () {
-              _pageController.animateToPage(
-                _getNextIndex(),
-                duration: const Duration(milliseconds: DurationConstants.d300),
-                curve: Curves.bounceInOut,
-              );
-            },
-            child: SizedBox(
-              height: AppSize.s20,
-              width: AppSize.s20,
-              child: SvgPicture.asset(ImageAssets.rightArrow),
             ),
           ),
-        ),
-      ],
+          Row(
+            children: [
+              for (int i = 0; i < _list.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: _getProperCircle(i),
+                ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              onTap: () {
+                _pageController.animateToPage(
+                  _getNextIndex(),
+                  duration:
+                      const Duration(milliseconds: DurationConstants.d300),
+                  curve: Curves.bounceInOut,
+                );
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.rightArrow),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
