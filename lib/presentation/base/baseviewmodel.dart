@@ -1,4 +1,5 @@
-abstract class BaseViewModel {
+abstract class BaseViewModel extends BaseViewModelInputs
+    with BaseViewModelOutputs {
   // shared variables and methods that are used in all viewmodels
 }
 
@@ -7,6 +8,4 @@ abstract class BaseViewModelInputs {
   void dispose(); // will be called when view model dies
 }
 
-abstract class BaseViewModelOutputs {
-  
-}
+mixin class BaseViewModelOutputs {}
