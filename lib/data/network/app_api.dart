@@ -1,4 +1,4 @@
-import 'package:advanced_course_udemy/data/network/constant.dart';
+import 'package:advanced_course_udemy/app/constant.dart';
 import 'package:advanced_course_udemy/data/responses/responses.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
