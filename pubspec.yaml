@@ -11,11 +11,17 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
+  retrofit: ^4.4.2
+  analyzer: ^6.7.0
+  dio: ^5.8.0
+  json_serializable: ^6.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  retrofit_generator: ^9.1.5
+  build_runner: ^2.4.13
 
 flutter:
   uses-material-design: true
