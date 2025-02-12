@@ -15,6 +15,8 @@ dependencies:
   analyzer: ^6.7.0
   dio: ^5.8.0
   json_serializable: ^6.9.0
+  dartz: ^0.10.1
+  internet_connection_checker: ^3.0.1
 
 dev_dependencies:
   flutter_test:
