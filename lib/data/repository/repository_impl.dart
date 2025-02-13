@@ -1,5 +1,6 @@
 import 'package:advanced_course_udemy/data/data_source/remote_data_source.dart';
 import 'package:advanced_course_udemy/data/mapper/mapper.dart';
+import 'package:advanced_course_udemy/data/network/error_handler.dart';
 import 'package:advanced_course_udemy/data/network/failure.dart';
 import 'package:advanced_course_udemy/data/network/network_info.dart';
 import 'package:advanced_course_udemy/data/request/request.dart';
@@ -15,16 +16,21 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, Authentication>> login(LoginRequest request) async {
     if (await _networkInfo.isConnected) {
-      final response = await _remoteDataSource.login(request);
-      if (response.status == 0) {
-        return Right(response.toDomain());
-      } else {
-        return Left(
-          Failure(409, response.message ?? 'Biz error logic from API side'),
-        );
+      try {
+        final response = await _remoteDataSource.login(request);
+        if (response.status == ApiInternalStatus.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(response.status ?? ApiInternalStatus.failure,
+                response.message ?? ResponseMessage.defaultError),
+          );
+        }
+      } catch (e) {
+        return (Left(ErrorHandler.handle(e).failure));
       }
     } else {
-      return Left(Failure(501, 'No internet connection'));
+      return Left(DataSource.noInternetConnection.getFailure());
     }
   }
 }
