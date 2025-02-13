@@ -33,3 +33,29 @@ class ResponseCode {
   static const int cacheError = -6;
   static const int noInternetConnection = -7;
 }
+
+class ResponseMessage {
+  // API status codes
+  static const String success = "success"; // success with data
+  static const String noContent =
+      "success without data"; // success without data
+  static const String badRequest =
+      "Bad request, try again later"; // failure, api rejected the request
+  static const String forbidden =
+      "forbidden, try again later"; // failure, api rejected the request
+  static const String unauthorized =
+      "user is not authorized, try again later"; // failure, user is not authorized
+  static const String notFound =
+      "Url not found, try again later"; // failure, api url not found
+  static const String internalServerError =
+      "something went wrong, try again later"; // failure, server error
+
+  // Local status code
+  static const String unknownError = "some thing went wrong, try again later";
+  static const String connectTimeout = "connect timeout, try again later";
+  static const String cancel = "request has been canceled";
+  static const String receiveTimeout = "receive timeout, try again later";
+  static const String sendTimeout = "send timeout, try again later";
+  static const String cacheError = "cache error, try again later";
+  static const String noInternetConnection = "no internet connection";
+}
