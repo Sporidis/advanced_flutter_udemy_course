@@ -1,3 +1,4 @@
+import 'package:advanced_course_udemy/app/app_prefs.dart';
 import 'package:advanced_course_udemy/app/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -10,15 +11,19 @@ const String authorization = 'Authorization';
 const String defaultLanguage = 'language';
 
 class DioFactory {
+  final AppPrefs _appPrefs;
+
+  DioFactory(this._appPrefs);
+
   Future<Dio> getDio() async {
     Dio dio = Dio();
     int timeOut = 60 * 1000; // 1 minute
-
+    String language = await _appPrefs.getAppLanguage();
     Map<String, dynamic> headers = {
       contentType: applicationJson,
       accept: applicationJson,
       authorization: Constant.token,
-      defaultLanguage: "en" // todo get lang from app prefs
+      defaultLanguage: language
     };
 
     dio.options = BaseOptions(
@@ -28,9 +33,9 @@ class DioFactory {
       headers: headers,
     );
 
-    if(kReleaseMode){
+    if (kReleaseMode) {
       print('Release Mode no logs');
-    } else{
+    } else {
       dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
