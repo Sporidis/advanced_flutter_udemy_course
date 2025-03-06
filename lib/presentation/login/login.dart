@@ -1,4 +1,7 @@
 import 'package:advanced_course_udemy/presentation/login/login_viewmodel.dart';
+import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
+import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';
+import 'package:advanced_course_udemy/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
@@ -14,17 +17,52 @@ class _LoginViewState extends State<LoginView> {
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   _bind() {
     _viewModel.start();
-    _userNameController.addListener(() => _viewModel.setUserName(_userNameController.text));
-    _passwordController.addListener(() => _viewModel.setPassword(_passwordController.text));
+    _userNameController
+        .addListener(() => _viewModel.setUserName(_userNameController.text));
+    _passwordController
+        .addListener(() => _viewModel.setPassword(_passwordController.text));
   }
 
   @override
   void initState() {
     _bind();
     super.initState();
+  }
+
+  Widget _getContentWidget() {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.only(top: AppPadding.p100),
+        color: ColorManager.white,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const Image(image: AssetImage(ImageAssets.splashLogo)),
+                const SizedBox(height: AppSize.s28),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: AppPadding.p28, right: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                      stream: _viewModel.outputIsUserNameValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          controller: _userNameController,
+                          keyboardType: TextInputType.emailAddress,
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
