@@ -12,7 +12,7 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
 
   var loginObject = LoginObject("", "");
-  final LoginUseCase _loginUseCase;
+  final LoginUseCase? _loginUseCase; // TODO remove nullable
   LoginViewModel(this._loginUseCase);
 
   @override
@@ -79,7 +79,7 @@ class LoginViewModel extends BaseViewModel
   }
 }
 
-abstract class LoginViewModelInputs {
+mixin LoginViewModelInputs {
   //3 functions
   setUserName(String userName);
   setPassword(String password);
@@ -90,7 +90,7 @@ abstract class LoginViewModelInputs {
   Sink get inputPassword;
 }
 
-abstract class LoginViewModelOutputs {
+mixin LoginViewModelOutputs {
   //2 streams
   Stream<bool> get outputIsUserNameValid;
   Stream<bool> get outputIsPasswordValid;
