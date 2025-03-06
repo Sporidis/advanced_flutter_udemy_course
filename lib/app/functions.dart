@@ -14,8 +14,16 @@ Future<DeviceInfo> getDeviceDetails() async {
   try {
     if (Platform.isAndroid) {
       //return android device details
+      AndroidDeviceInfo build = await deviceInfoPlugin.androidInfo;
+      name = "${build.brand} ${build.model}";
+      identifier = build.androidId;
+      version = build.version.codename;
     } else if (Platform.isIOS) {
       //return ios device details
+      IosDeviceInfo data = await deviceInfoPlugin.iosInfo;
+      name = "${data.name} ${data.model}";
+      identifier = data.identifierForVendor;
+      version = data.systemVersion;
     }
   } on PlatformException {
     // return default data here
