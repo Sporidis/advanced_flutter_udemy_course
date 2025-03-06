@@ -1,10 +1,24 @@
-import 'package:advanced_course_udemy/presentation/base/baseviewmodel.dart';
+import 'dart:async';
 
-class LoginViewmodel extends BaseViewModel
+import 'package:advanced_course_udemy/domain/usecase/login_usecase.dart';
+import 'package:advanced_course_udemy/presentation/base/baseviewmodel.dart';
+import 'package:advanced_course_udemy/presentation/common/freezed_data_classes.dart';
+
+class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
+  final StreamController _userNameStreamController =
+      StreamController<String>.broadcast();
+  final StreamController _passwordStreamController =
+      StreamController<String>.broadcast();
+
+  var loginObject = LoginObject("", "");
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this._loginUseCase);
+
   @override
   void dispose() {
-    // TODO: implement dispose
+    _userNameStreamController.close();
+    _passwordStreamController.close();
   }
 
   @override
@@ -13,38 +27,56 @@ class LoginViewmodel extends BaseViewModel
   }
 
   @override
-  // TODO: implement inputPassword
-  Sink get inputPassword => throw UnimplementedError();
+  Sink get inputPassword => _passwordStreamController.sink;
 
   @override
-  // TODO: implement inputUserName
-  Sink get inputUserName => throw UnimplementedError();
+  Sink get inputUserName => _userNameStreamController.sink;
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async {
+    (await _loginUseCase.execute(
+            LoginUsecaseInput(loginObject.userName, loginObject.password)))
+        .fold(
+            (failure) => {
+                  //handle error
+                  print(failure.message)
+                },
+            (data) => {
+                  //handle success
+                  print(data.customer?.name)
+                });
   }
 
   @override
   setPassword(String password) {
-    // TODO: implement setPassword
-    throw UnimplementedError();
+    inputPassword.add(password);
+    loginObject = loginObject.copyWith(
+        password: password); // data class operation same as kotlin
   }
 
   @override
   setUserName(String userName) {
-    // TODO: implement setUserName
-    throw UnimplementedError();
+    inputUserName.add(userName);
+    loginObject = loginObject.copyWith(
+        userName: userName); // data class operation same as kotlin
   }
 
   @override
-  // TODO: implement outputIsPasswordValid
-  Stream<bool> get outputIsPasswordValid => throw UnimplementedError();
+  Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
+      .map((password) => _isPasswordValid(password));
 
   @override
-  // TODO: implement outputIsUserNameValid
-  Stream<bool> get outputIsUserNameValid => throw UnimplementedError();
+  Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream
+      .map((userName) => _isUserNameValid(userName));
+
+  //private functions
+  bool _isPasswordValid(String password) {
+    return password.length > 6;
+  }
+
+  bool _isUserNameValid(String userName) {
+    return userName.length > 6;
+  }
 }
 
 abstract class LoginViewModelInputs {
