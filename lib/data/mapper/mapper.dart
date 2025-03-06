@@ -3,7 +3,7 @@
 
 import 'package:advanced_course_udemy/app/extensions.dart';
 import 'package:advanced_course_udemy/data/responses/responses.dart';
-import 'package:advanced_course_udemy/domain/model.dart';
+import 'package:advanced_course_udemy/domain/model/model.dart';
 
 const EMPTY = "";
 const ZERO = 0;

@@ -4,8 +4,8 @@ import 'package:advanced_course_udemy/data/network/error_handler.dart';
 import 'package:advanced_course_udemy/data/network/failure.dart';
 import 'package:advanced_course_udemy/data/network/network_info.dart';
 import 'package:advanced_course_udemy/data/request/request.dart';
-import 'package:advanced_course_udemy/domain/model.dart';
-import 'package:advanced_course_udemy/domain/repository.dart';
+import 'package:advanced_course_udemy/domain/model/model.dart';
+import 'package:advanced_course_udemy/domain/repository/repository.dart';
 import 'package:dartz/dartz.dart';
 
 class RepositoryImpl extends Repository {

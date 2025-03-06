@@ -1,4 +1,4 @@
-import 'package:advanced_course_udemy/domain/model.dart';
+import 'package:advanced_course_udemy/domain/model/model.dart';
 import 'package:advanced_course_udemy/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:advanced_course_udemy/domain/model.dart';
+import 'package:advanced_course_udemy/domain/model/model.dart';
 import 'package:advanced_course_udemy/presentation/base/baseviewmodel.dart';
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/string_manager.dart';
