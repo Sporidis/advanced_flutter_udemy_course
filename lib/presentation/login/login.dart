@@ -1,6 +1,7 @@
 import 'package:advanced_course_udemy/presentation/login/login_viewmodel.dart';
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';
+import 'package:advanced_course_udemy/presentation/resources/string_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -54,9 +55,51 @@ class _LoginViewState extends State<LoginView> {
                         return TextFormField(
                           controller: _userNameController,
                           keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              hintText: AppStrings.username,
+                              labelText: AppStrings.username,
+                              errorText: (snapshot.data ?? true)
+                                  ? null
+                                  : AppStrings.usernameError),
                         );
                       }),
-                )
+                ),
+                const SizedBox(height: AppSize.s28),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: AppPadding.p28, right: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                      stream: _viewModel.outputIsPasswordValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          controller: _passwordController,
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: InputDecoration(
+                              hintText: AppStrings.password,
+                              labelText: AppStrings.password,
+                              errorText: (snapshot.data ?? true)
+                                  ? null
+                                  : AppStrings.passwordError),
+                        );
+                      }),
+                ),
+                const SizedBox(height: AppSize.s28),
+                Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder(
+                      stream: _viewModel.outputIsAllInputsValid,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                          onPressed: (snapshot.data ?? false)
+                              ? () {
+                                  _viewModel.login();
+                                }
+                              : null,
+                          child: const Text(AppStrings.login),
+                        );
+                      },
+                    )),
               ],
             ),
           ),
