@@ -1,3 +1,7 @@
+import 'package:advanced_course_udemy/data/data_source/remote_data_source.dart';
+import 'package:advanced_course_udemy/data/repository/repository_impl.dart';
+import 'package:advanced_course_udemy/domain/repository/repository.dart';
+import 'package:advanced_course_udemy/domain/usecase/login_usecase.dart';
 import 'package:advanced_course_udemy/presentation/login/login_viewmodel.dart';
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';
@@ -13,8 +17,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel =
-      LoginViewModel(null); // TODO pass here the usecase
+  final LoginViewModel _viewModel = LoginViewModel();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -34,11 +37,16 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return _getContentWidget();
+  }
+
   Widget _getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
-        color: ColorManager.white,
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -90,16 +98,44 @@ class _LoginViewState extends State<LoginView> {
                     child: StreamBuilder(
                       stream: _viewModel.outputIsAllInputsValid,
                       builder: (context, snapshot) {
-                        return ElevatedButton(
-                          onPressed: (snapshot.data ?? false)
-                              ? () {
-                                  _viewModel.login();
-                                }
-                              : null,
-                          child: const Text(AppStrings.login),
-                        );
+                        return SizedBox(
+                            width: double.infinity,
+                            height: AppSize.s40,
+                            child: ElevatedButton(
+                              onPressed: (snapshot.data ?? false)
+                                  ? () {
+                                      _viewModel.login();
+                                    }
+                                  : null,
+                              child: const Text(AppStrings.login),
+                            ));
                       },
                     )),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: AppPadding.p8,
+                      left: AppPadding.p28,
+                      right: AppPadding.p28),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(AppStrings.forgotPassword,
+                              style: Theme.of(context).textTheme.labelSmall),
+                        ),
+                      ),
+                      Flexible(
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(AppStrings.dontHaveAccount,
+                              style: Theme.of(context).textTheme.labelSmall),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -112,10 +148,5 @@ class _LoginViewState extends State<LoginView> {
   void dispose() {
     _viewModel.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

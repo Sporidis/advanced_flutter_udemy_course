@@ -19,7 +19,7 @@ class LoginUseCase implements BaseUseCase<LoginUsecaseInput, Authentication> {
   }
 }
 
-class LoginUsecaseInput {
+ class LoginUsecaseInput {
   final String email;
   final String password;
 
