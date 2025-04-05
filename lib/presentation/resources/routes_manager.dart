@@ -1,3 +1,4 @@
+import 'package:advanced_course_udemy/app/di.dart';
 import 'package:advanced_course_udemy/presentation/forgot_password/forgot_password.dart';
 import 'package:advanced_course_udemy/presentation/login/login.dart';
 import 'package:advanced_course_udemy/presentation/main/main_view.dart';
@@ -26,6 +27,7 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingView());
       case Routes.loginRoute:
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterView());

@@ -1,7 +1,4 @@
-import 'package:advanced_course_udemy/data/data_source/remote_data_source.dart';
-import 'package:advanced_course_udemy/data/repository/repository_impl.dart';
-import 'package:advanced_course_udemy/domain/repository/repository.dart';
-import 'package:advanced_course_udemy/domain/usecase/login_usecase.dart';
+import 'package:advanced_course_udemy/app/di.dart';
 import 'package:advanced_course_udemy/presentation/login/login_viewmodel.dart';
 import 'package:advanced_course_udemy/presentation/resources/assets_manager.dart';
 import 'package:advanced_course_udemy/presentation/resources/color_manager.dart';
@@ -17,7 +14,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel = LoginViewModel();
+
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
