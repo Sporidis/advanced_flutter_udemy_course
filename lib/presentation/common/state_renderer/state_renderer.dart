@@ -24,7 +24,6 @@ enum StateRendererType {
 
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
-  Failure failure;
   String message;
   String title;
   Function? retryActionFunction;
@@ -37,8 +36,7 @@ class StateRenderer extends StatelessWidget {
     String? title,
     required this.retryActionFunction,
   })  : message = message ?? AppStrings.loading,
-        title = title ?? "",
-        failure = failure ?? DefaultFailure();
+        title = title ?? "";
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +51,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.POPUP_SCREEN_ERROR_STATE:
         return _getPopupDialog(context, [
           _getAnimatedImage(JsonAssets.error),
-          _getMessage(failure.message),
+          _getMessage(message),
           _getRetryButton(AppStrings.ok, context),
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
@@ -62,7 +60,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
         return _getItemsInColumn([
           _getAnimatedImage(JsonAssets.error),
-          _getMessage(failure.message),
+          _getMessage(message),
           _getRetryButton(AppStrings.retryAgain, context)
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
@@ -162,3 +160,5 @@ class StateRenderer extends StatelessWidget {
     );
   }
 }
+
+

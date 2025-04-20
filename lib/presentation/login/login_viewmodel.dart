@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:advanced_course_udemy/domain/usecase/login_usecase.dart';
 import 'package:advanced_course_udemy/presentation/base/baseviewmodel.dart';
 import 'package:advanced_course_udemy/presentation/common/freezed_data_classes.dart';
+import 'package:advanced_course_udemy/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -26,7 +27,8 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    // view tells state renderer, pls show content of the screen
+    inputState.add(ContentState());
   }
 
   @override
